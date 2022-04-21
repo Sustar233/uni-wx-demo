@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view @click="showM">
 		home
 	</view>
 </template>
@@ -13,12 +13,12 @@
 		},
 		onLoad() {
 			this.init()
-		},
+		},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 		methods: {
 			async init() {
 				uni.showToast({
 					title: '数据请求失败！',
-					duration: 2500,
+					duration: 1500,
 					icon: 'none'
 				})
 				const res = await uni.$http.get('/api/public/v1/home/swiperdata')
@@ -31,7 +31,16 @@
 						icon: 'none'
 					})
 				}
-			}
+			},
+			showM() {
+				uni.$showMsg()
+				console.log('qwq')
+			},
+			async getNavList() {
+				const {data: res} = await uni.$http.get('/api/public/v1/home/catitems')
+				if (res.meta.status !== 200) return uni.$showMsg()
+				this.navList = res.message
+			},
 		}
 	}
 </script>
