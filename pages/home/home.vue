@@ -1,6 +1,10 @@
 <template>
-	<view @click="showM">
-		home
+	<view>
+		<view class="nav-list">
+			<view class="nav-item" v-for="(item, i) in navList" :key="i" @click="navClickHandle(item)">
+				{{item}}
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -8,12 +12,16 @@
 	export default {
 		data() {
 			return {
-				
+				navList: [
+					'qwq',
+					'qaq',
+					'QWQ'
+				]
 			};
 		},
 		onLoad() {
 			this.init()
-		},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+		},
 		methods: {
 			async init() {
 				uni.showToast({
@@ -32,12 +40,21 @@
 					})
 				}
 			},
-			showM() {
-				uni.$showMsg()
-				console.log('qwq')
+			navClickHandle(item) {
+				if (item === 'qwq') {
+					uni.switchTab({
+						url: '/pages/cate/cate'
+					})
+				}
 			},
+			// showM() {
+			// 	uni.$showMsg()
+			// 	console.log('qwq')
+			// },
 			async getNavList() {
-				const {data: res} = await uni.$http.get('/api/public/v1/home/catitems')
+				const {
+					data: res
+				} = await uni.$http.get('/api/public/v1/home/catitems')
 				if (res.meta.status !== 200) return uni.$showMsg()
 				this.navList = res.message
 			},
@@ -46,5 +63,14 @@
 </script>
 
 <style lang="scss">
+	.nav-list {
+		display: flex;
+		margin-top: 10rpx;
+		justify-content: space-around;
+	}
 
+	.nav-item {
+		padding: 10rpx;
+		background-color: pink;
+	}
 </style>
